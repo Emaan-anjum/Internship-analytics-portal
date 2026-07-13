@@ -14,5 +14,17 @@ __pycache__/
 # Environment Variables
 .env
 
-# macOS
+# Credentials
+secrets/*
+
+# OS Files
 .DS_Store
+Thumbs.db
+
+# Pytest Cache (future-proof)
+.pytest_cache/
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
