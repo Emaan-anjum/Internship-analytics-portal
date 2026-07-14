@@ -28,3 +28,7 @@ Thumbs.db
 build/
 dist/
 *.egg-info/
+
+# Coding Agents
+.agents
+.skills

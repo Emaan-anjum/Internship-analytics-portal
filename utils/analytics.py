@@ -1,131 +1,125 @@
 """
 Analytics functions for the RESOLVE Internship Analytics Portal.
 
-This module contains reusable functions that calculate KPIs
-and aggregated statistics from the internship dataset.
+This module contains reusable functions for calculating
+key performance indicators (KPIs) and summary statistics
+from the internship dataset.
 """
-
-# -------------------------------------------------------------------
-# Third-Party Imports
-# -------------------------------------------------------------------
 
 import pandas as pd
 
 
-# -------------------------------------------------------------------
-# KPI FUNCTIONS
-# -------------------------------------------------------------------
+def _get_numeric_series(
+    df: pd.DataFrame,
+    column_name: str,
+) -> pd.Series:
+    """
+    Convert a DataFrame column to a numeric pandas Series.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Internship dataset.
+
+    column_name : str
+        Name of the numeric column.
+
+    Returns
+    -------
+    pandas.Series
+        Numeric values with invalid entries converted to NaN.
+    """
+
+    if column_name not in df.columns:
+        raise KeyError(
+            f"Column '{column_name}' not found in the dataset."
+        )
+
+    return pd.to_numeric(
+        df[column_name],
+        errors="coerce",
+    )
+
 
 def get_total_students(df: pd.DataFrame) -> int:
-    """Return the total number of students."""
+    """
+    Return the total number of students.
+    """
+
     return len(df)
 
 
 def get_total_universities(df: pd.DataFrame) -> int:
-    """Return the number of unique universities."""
-    if "university" not in df.columns:
-        return 0
+    """
+    Return the total number of unique universities.
+    """
 
     return df["university"].dropna().nunique()
 
 
-def get_total_domains(df: pd.DataFrame) -> int:
-    """Return the number of unique domains."""
-    if "domain" not in df.columns:
-        return 0
-
-    return df["domain"].dropna().nunique()
-
-
 def get_total_supervisors(df: pd.DataFrame) -> int:
-    """Return the number of unique supervisors."""
-    if "supervisor" not in df.columns:
-        return 0
+    """
+    Return the total number of unique supervisors.
+    """
 
     return df["supervisor"].dropna().nunique()
 
 
-# -------------------------------------------------------------------
-# CGPA ANALYTICS
-# -------------------------------------------------------------------
+def get_average_cgpa(df: pd.DataFrame) -> float:
+    """
+    Return the average CGPA.
+    """
 
-def get_average_cgpa(df: pd.DataFrame):
-
-    if "cgpa" not in df.columns:
-        return None
-
-    cgpa = pd.to_numeric(df["cgpa"], errors="coerce")
+    cgpa = _get_numeric_series(df, "cgpa")
 
     return round(cgpa.mean(), 2)
 
 
-def get_min_cgpa(df: pd.DataFrame):
+def get_min_cgpa(df: pd.DataFrame) -> float:
+    """
+    Return the minimum CGPA.
+    """
 
-    if "cgpa" not in df.columns:
-        return None
-
-    cgpa = pd.to_numeric(df["cgpa"], errors="coerce")
+    cgpa = _get_numeric_series(df, "cgpa")
 
     return round(cgpa.min(), 2)
 
 
-def get_max_cgpa(df: pd.DataFrame):
+def get_max_cgpa(df: pd.DataFrame) -> float:
+    """
+    Return the maximum CGPA.
+    """
 
-    if "cgpa" not in df.columns:
-        return None
-
-    cgpa = pd.to_numeric(df["cgpa"], errors="coerce")
+    cgpa = _get_numeric_series(df, "cgpa")
 
     return round(cgpa.max(), 2)
 
 
-# -------------------------------------------------------------------
-# DISTRIBUTIONS
-# -------------------------------------------------------------------
-
-def get_university_distribution(df: pd.DataFrame):
-
-    if "university" not in df.columns:
-        return pd.Series(dtype=int)
-
-    return (
-        df["university"]
-        .value_counts()
-        .sort_values(ascending=False)
-    )
-
-
-def get_domain_distribution(df: pd.DataFrame):
-
-    if "domain" not in df.columns:
-        return pd.Series(dtype=int)
-
-    return (
-        df["domain"]
-        .value_counts()
-        .sort_values(ascending=False)
-    )
-
-
-def get_supervisor_distribution(df: pd.DataFrame):
-
-    if "supervisor" not in df.columns:
-        return pd.Series(dtype=int)
-
-    return (
-        df["supervisor"]
-        .value_counts()
-        .sort_values(ascending=False)
-    )
-
-
-def get_placement_distribution(df: pd.DataFrame):
-
-    if "placement" not in df.columns:
-        return pd.Series(dtype=int)
+def get_morning_placements(df: pd.DataFrame) -> int:
+    """
+    Return the total number of RESOLVE (M) placements.
+    """
 
     return (
         df["placement"]
-        .value_counts()
-        .sort_values(ascending=False)
+        .fillna("")
+        .str.strip()
+        .str.upper()
+        .eq("RESOLVE (M)")
+        .sum()
+    )
+
+
+def get_evening_placements(df: pd.DataFrame) -> int:
+    """
+    Return the total number of RESOLVE (E) placements.
+    """
+
+    return (
+        df["placement"]
+        .fillna("")
+        .str.strip()
+        .str.upper()
+        .eq("RESOLVE (E)")
+        .sum()
     )
