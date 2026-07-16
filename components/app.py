@@ -14,8 +14,6 @@ from config import (
     APP_NAME,
 )
 
-from components.theme import apply_theme
-
 
 # =========================================================
 # Page Configuration

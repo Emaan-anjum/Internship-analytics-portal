@@ -991,3 +991,97 @@ img{
     }
 
 }
+
+/* ==========================================================
+   Application Header
+========================================================== */
+
+.app-header-titles{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.app-header-titles h1{
+    margin:0;
+    font-size:3rem;
+    font-weight:800;
+    color:#111827 !important;
+    text-align:center;
+}
+
+.app-header-org{
+    margin-top:0.75rem;
+    margin-bottom:0;
+    font-size:1.1rem;
+    color:#64748B !important;
+    font-weight:500;
+}
+
+.app-header-program{
+    margin-top:.45rem;
+    margin-bottom:0;
+    font-size:1.05rem;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--primary-orange) !important;
+}
+
+.app-header-statusbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-top:1.75rem;
+
+    padding:.85rem 1rem;
+
+    background:#FFFFFF;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.app-header-status{
+
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+
+    color:#0B7A33;
+
+    font-weight:700;
+
+}
+
+.status-dot{
+
+    width:11px;
+    height:11px;
+
+    border-radius:50%;
+
+    background:#22C55E;
+
+    display:inline-block;
+
+    box-shadow:0 0 0 5px rgba(34,197,94,.18);
+
+}
+
+.app-header-refresh{
+
+    color:var(--text-secondary);
+
+    font-size:.95rem;
+
+    font-weight:500;
+
+}

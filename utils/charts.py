@@ -6,9 +6,56 @@ import plotly.express as px
 import pandas as pd
 
 from config import (
+    CHART_HEIGHT,
+    GRID_COLOR,
     PRIMARY_BLUE,
     PRIMARY_ORANGE,
+    TEXT_PRIMARY,
+    TEXT_SECONDARY,
 )
+
+
+def _apply_resolve_chart_style(fig, title: str):
+    """
+    Apply the shared RESOLVE visual style to a Plotly figure.
+
+    This only touches layout/presentation (fonts, margins, grid,
+    hover, legend, title styling) — it never modifies the
+    underlying data, trace values, or calculations.
+    """
+
+    fig.update_layout(
+        title={
+            "text": f"<b>{title}</b>",
+            "x": 0.02,
+            "xanchor": "left",
+            "font": {"size": 17, "color": TEXT_PRIMARY, "family": "Inter, sans-serif"},
+        },
+        template="plotly_white",
+        height=CHART_HEIGHT,
+        font=dict(family="Inter, sans-serif", size=13, color=TEXT_SECONDARY),
+        margin=dict(l=40, r=30, t=60, b=40),
+        hoverlabel=dict(
+            bgcolor="white",
+            bordercolor=PRIMARY_BLUE,
+            font=dict(family="Inter, sans-serif", size=13, color=TEXT_PRIMARY),
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(size=12),
+        ),
+        plot_bgcolor="white",
+        paper_bgcolor="rgba(0,0,0,0)",
+    )
+
+    fig.update_xaxes(showgrid=False, linecolor=GRID_COLOR, title_font=dict(size=13))
+    fig.update_yaxes(showgrid=True, gridcolor=GRID_COLOR, title_font=dict(size=13))
+
+    return fig
 
 
 def create_university_distribution_chart(
@@ -40,12 +87,9 @@ def create_university_distribution_chart(
         ],
     )
 
-    fig.update_layout(
-        title="Students by University",
-        template="plotly_white",
-        height=300,
-        coloraxis_showscale=False,
-    )
+    fig.update_layout(coloraxis_showscale=False)
+
+    _apply_resolve_chart_style(fig, "Students by University")
 
     return fig
 
@@ -83,11 +127,7 @@ def create_degree_distribution_chart(
         ],
     )
 
-    fig.update_layout(
-        title="Degree Distribution",
-        template="plotly_white",
-        height=300,
-    )
+    _apply_resolve_chart_style(fig, "Degree Distribution")
 
     return fig
 
@@ -108,11 +148,7 @@ def create_cgpa_histogram(
         ],
     )
 
-    fig.update_layout(
-        title="CGPA Distribution",
-        template="plotly_white",
-        height=300,
-    )
+    _apply_resolve_chart_style(fig, "CGPA Distribution")
 
     return fig
 
@@ -146,11 +182,8 @@ def create_shift_distribution_chart(
         ],
     )
 
-    fig.update_layout(
-        title="Placement Shift Distribution",
-        template="plotly_white",
-        height=300,
-        showlegend=False,
-    )
+    fig.update_layout(showlegend=False)
+
+    _apply_resolve_chart_style(fig, "Placement Shift Distribution")
 
     return fig
