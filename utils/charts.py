@@ -43,7 +43,7 @@ def create_university_distribution_chart(
     fig.update_layout(
         title="Students by University",
         template="plotly_white",
-        height=450,
+        height=300,
         coloraxis_showscale=False,
     )
 
@@ -86,7 +86,7 @@ def create_degree_distribution_chart(
     fig.update_layout(
         title="Degree Distribution",
         template="plotly_white",
-        height=450,
+        height=300,
     )
 
     return fig
@@ -111,7 +111,7 @@ def create_cgpa_histogram(
     fig.update_layout(
         title="CGPA Distribution",
         template="plotly_white",
-        height=450,
+        height=300,
     )
 
     return fig
@@ -149,7 +149,7 @@ def create_shift_distribution_chart(
     fig.update_layout(
         title="Placement Shift Distribution",
         template="plotly_white",
-        height=450,
+        height=300,
         showlegend=False,
     )
 

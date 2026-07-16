@@ -4,124 +4,142 @@ Students Page for the RESOLVE Internship Analytics Portal.
 
 import streamlit as st
 
+from components.app import initialize_app
 from utils.load_data import load_data
 
 
-st.title("👨‍🎓 Students")
+def main() -> None:
+    """
+    Display and filter internship student records.
+    """
 
-st.caption(
-    "Browse, search and filter internship records."
-)
+    initialize_app()
 
-# ---------------------------------------------------------
-# Load Data
-# ---------------------------------------------------------
+    st.title("👨‍🎓 Students")
 
-df = load_data()
-
-# ---------------------------------------------------------
-# Filters
-# ---------------------------------------------------------
-
-st.subheader("Filters")
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-
-    selected_university = st.selectbox(
-        "University",
-        ["All"] + sorted(df["university"].dropna().unique().tolist())
+    st.caption(
+        "Browse, search and filter internship records."
     )
 
-with col2:
+    # ---------------------------------------------------------
+    # Load Data
+    # ---------------------------------------------------------
 
-    selected_degree = st.selectbox(
-        "Degree",
-        ["All"] + sorted(df["degree"].dropna().unique().tolist())
-    )
+    df = load_data()
 
-with col3:
+    # ---------------------------------------------------------
+    # Filters
+    # ---------------------------------------------------------
 
-    selected_placement = st.selectbox(
-        "Placement",
-        ["All"] + sorted(df["placement"].dropna().unique().tolist())
-    )
+    st.subheader("Filters")
 
-# ---------------------------------------------------------
-# Search
-# ---------------------------------------------------------
+    col1, col2, col3 = st.columns(3)
 
-search_text = st.text_input(
-    "🔍 Search Student",
-    placeholder="Enter student name..."
-)
+    with col1:
 
-# ---------------------------------------------------------
-# Apply Filters
-# ---------------------------------------------------------
-
-filtered_df = df.copy()
-
-if selected_university != "All":
-    filtered_df = filtered_df[
-        filtered_df["university"] == selected_university
-    ]
-
-if selected_degree != "All":
-    filtered_df = filtered_df[
-        filtered_df["degree"] == selected_degree
-    ]
-
-if selected_placement != "All":
-    filtered_df = filtered_df[
-        filtered_df["placement"] == selected_placement
-    ]
-
-if search_text:
-
-    filtered_df = filtered_df[
-        filtered_df["name"]
-        .astype(str)
-        .str.contains(
-            search_text,
-            case=False,
-            na=False,
+        selected_university = st.selectbox(
+            "University",
+            ["All"] + sorted(
+                df["university"].dropna().unique().tolist()
+            ),
         )
-    ]
 
-# ---------------------------------------------------------
-# Summary
-# ---------------------------------------------------------
+    with col2:
 
-st.metric(
-    "Students Found",
-    len(filtered_df),
-)
+        selected_degree = st.selectbox(
+            "Degree",
+            ["All"] + sorted(
+                df["degree"].dropna().unique().tolist()
+            ),
+        )
 
-# ---------------------------------------------------------
-# Display Table
-# ---------------------------------------------------------
+    with col3:
 
-st.subheader("Student Records")
+        selected_placement = st.selectbox(
+            "Placement",
+            ["All"] + sorted(
+                df["placement"].dropna().unique().tolist()
+            ),
+        )
 
-st.dataframe(
-    filtered_df,
-    width="stretch",
-    hide_index=True,
-)
+    # ---------------------------------------------------------
+    # Search
+    # ---------------------------------------------------------
 
-# ---------------------------------------------------------
-# Export
-# ---------------------------------------------------------
+    search_text = st.text_input(
+        "🔍 Search Student",
+        placeholder="Enter student name...",
+    )
 
-csv = filtered_df.to_csv(
-    index=False,
-).encode("utf-8")
+    # ---------------------------------------------------------
+    # Apply Filters
+    # ---------------------------------------------------------
 
-st.download_button(
-    label="📥 Download Filtered Data",
-    data=csv,
-    file_name="students.csv",
-    mime="text/csv",
-)
+    filtered_df = df.copy()
+
+    if selected_university != "All":
+        filtered_df = filtered_df[
+            filtered_df["university"] == selected_university
+        ]
+
+    if selected_degree != "All":
+        filtered_df = filtered_df[
+            filtered_df["degree"] == selected_degree
+        ]
+
+    if selected_placement != "All":
+        filtered_df = filtered_df[
+            filtered_df["placement"] == selected_placement
+        ]
+
+    if search_text:
+
+        filtered_df = filtered_df[
+            filtered_df["name"]
+            .astype(str)
+            .str.contains(
+                search_text,
+                case=False,
+                na=False,
+            )
+        ]
+
+    # ---------------------------------------------------------
+    # Summary
+    # ---------------------------------------------------------
+
+    st.metric(
+        "Students Found",
+        len(filtered_df),
+    )
+
+    # ---------------------------------------------------------
+    # Display Table
+    # ---------------------------------------------------------
+
+    st.subheader("Student Records")
+
+    st.dataframe(
+        filtered_df,
+        width="stretch",
+        hide_index=True,
+    )
+
+    # ---------------------------------------------------------
+    # Export
+    # ---------------------------------------------------------
+
+    csv = filtered_df.to_csv(
+        index=False,
+    ).encode("utf-8")
+
+    st.download_button(
+        label="📥 Download Filtered Data",
+        data=csv,
+        file_name="students.csv",
+        mime="text/csv",
+    )
+
+
+if __name__ == "__main__":
+    main()

@@ -4,140 +4,134 @@ Placement Analytics Page.
 
 import streamlit as st
 
+from components.app import initialize_app
+
+from utils.analytics import (
+    get_placement_summary,
+    get_project_summary,
+    get_supervisor_summary,
+)
 from utils.load_data import load_data
 
 
-st.title("📍 Placements")
+def main() -> None:
+    """
+    Display placement, supervisor, and project allocation statistics.
+    """
 
-st.caption(
-    "Placement, supervisor and project allocation statistics."
-)
+    initialize_app()
 
-# ---------------------------------------------------------
-# Load Data
-# ---------------------------------------------------------
+    st.title("📍 Placements")
 
-df = load_data()
-
-# ---------------------------------------------------------
-# KPIs
-# ---------------------------------------------------------
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-
-    st.metric(
-        "Placement Shifts",
-        df["placement"].nunique(),
+    st.caption(
+        "Placement, supervisor and project allocation statistics."
     )
 
-with col2:
+    # ---------------------------------------------------------
+    # Load Data
+    # ---------------------------------------------------------
 
-    st.metric(
-        "Supervisors",
-        df["supervisor"].nunique(),
-    )
+    df = load_data()
 
-with col3:
+    # ---------------------------------------------------------
+    # Analytics
+    # ---------------------------------------------------------
 
-    st.metric(
-        "Projects",
-        df["project_assigned"].nunique(),
-    )
+    placement_summary = get_placement_summary(df)
 
-# ---------------------------------------------------------
-# Placement Distribution
-# ---------------------------------------------------------
+    supervisor_summary = get_supervisor_summary(df)
 
-st.subheader("Placement Distribution")
+    project_summary = get_project_summary(df)
 
-placement_summary = (
-    df.groupby("placement")
-    .size()
-    .reset_index(name="Students")
-)
+    # ---------------------------------------------------------
+    # KPIs
+    # ---------------------------------------------------------
 
-st.dataframe(
-    placement_summary,
-    width="stretch",
-    hide_index=True,
-)
+    col1, col2, col3 = st.columns(3)
 
-st.bar_chart(
-    placement_summary.set_index("placement")["Students"],
-    width="stretch",
-)
+    with col1:
+        st.metric(
+            "Placement Shifts",
+            len(placement_summary),
+        )
 
-# ---------------------------------------------------------
-# Supervisor Allocation
-# ---------------------------------------------------------
+    with col2:
+        st.metric(
+            "Supervisors",
+            len(supervisor_summary),
+        )
 
-st.subheader("Supervisor Allocation")
+    with col3:
+        st.metric(
+            "Projects",
+            len(project_summary),
+        )
 
-supervisor_summary = (
-    df.groupby("supervisor")
-    .size()
-    .reset_index(name="Students")
-    .sort_values(
-        "Students",
-        ascending=False,
-    )
-)
+    # ---------------------------------------------------------
+    # Placement Distribution
+    # ---------------------------------------------------------
 
-st.dataframe(
-    supervisor_summary,
-    width="stretch",
-    hide_index=True,
-)
-
-# ---------------------------------------------------------
-# Project Allocation
-# ---------------------------------------------------------
-
-st.subheader("Project Allocation")
-
-project_summary = (
-    df.groupby("project_assigned")
-    .size()
-    .reset_index(name="Students")
-    .sort_values(
-        "Students",
-        ascending=False,
-    )
-)
-
-st.dataframe(
-    project_summary,
-    width="stretch",
-    hide_index=True,
-)
-
-# ---------------------------------------------------------
-# Placement Details by Shift
-# ---------------------------------------------------------
-
-st.subheader("Placement Details")
-
-for shift in sorted(df["placement"].dropna().unique()):
-
-    st.markdown(f"### {shift}")
-
-    shift_df = df[
-        df["placement"] == shift
-    ]
+    st.subheader("Placement Distribution")
 
     st.dataframe(
-        shift_df[
-            [
-                "serial_number",
-                "name",
-                "university",
-                "supervisor",
-                "project_assigned",
-                "remarks",
-            ]
-        ],
+        placement_summary,
         width="stretch",
         hide_index=True,
-)
+    )
+
+    # ---------------------------------------------------------
+    # Supervisor Allocation
+    # ---------------------------------------------------------
+
+    st.subheader("Supervisor Allocation")
+
+    st.dataframe(
+        supervisor_summary,
+        width="stretch",
+        hide_index=True,
+    )
+
+    # ---------------------------------------------------------
+    # Project Allocation
+    # ---------------------------------------------------------
+
+    st.subheader("Project Allocation")
+
+    st.dataframe(
+        project_summary,
+        width="stretch",
+        hide_index=True,
+    )
+
+    # ---------------------------------------------------------
+    # Placement Details
+    # ---------------------------------------------------------
+
+    st.subheader("Placement Details")
+
+    for shift in sorted(df["placement"].dropna().unique()):
+
+        st.markdown(f"### {shift}")
+
+        shift_df = df[
+            df["placement"] == shift
+        ]
+
+        st.dataframe(
+            shift_df[
+                [
+                    "serial_number",
+                    "name",
+                    "university",
+                    "supervisor",
+                    "project_assigned",
+                    "remarks",
+                ]
+            ],
+            width="stretch",
+            hide_index=True,
+        )
+
+
+if __name__ == "__main__":
+    main()

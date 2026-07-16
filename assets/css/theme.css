@@ -1,0 +1,993 @@
+/* ==========================================================
+   RESOLVE Internship Analytics Portal
+   Corporate Design System
+   Version 3.0
+========================================================== */
+
+
+/* ==========================================================
+   Google Fonts
+========================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+
+/* ==========================================================
+   Brand Variables
+========================================================== */
+
+:root{
+
+    /* Primary Brand */
+
+    --primary-blue:#0F4C81;
+    --primary-blue-dark:#09345B;
+    --primary-blue-light:#EAF4FC;
+
+    --primary-orange:#F58220;
+    --primary-orange-light:#FFF4EA;
+
+    /* Background */
+
+    --background:#F4F7FB;
+    --surface:#FFFFFF;
+    --surface-alt:#FBFCFE;
+
+    /* Typography */
+
+    --text:#1E293B;
+    --text-secondary:#64748B;
+    --text-light:#94A3B8;
+
+    /* Borders */
+
+    --border:#E2E8F0;
+
+    /* Border Radius */
+
+    --radius-sm:10px;
+    --radius:16px;
+    --radius-lg:22px;
+
+    /* Shadows */
+
+    --shadow:
+        0 4px 14px rgba(15,76,129,.08);
+
+    --shadow-md:
+        0 10px 28px rgba(15,76,129,.10);
+
+    --shadow-hover:
+        0 18px 42px rgba(15,76,129,.18);
+
+    /* Animation */
+
+    --transition:all .28s ease;
+
+}
+
+
+/* ==========================================================
+   Global Typography
+========================================================== */
+
+html,
+body,
+[class*="css"]{
+
+    font-family:"Inter",sans-serif;
+
+    color:var(--text);
+
+    scroll-behavior:smooth;
+
+}
+
+
+/* ==========================================================
+   Main Application
+========================================================== */
+
+.stApp{
+
+    background:
+        linear-gradient(
+            180deg,
+            #F9FBFD 0%,
+            #F3F6FB 100%
+        );
+
+}
+
+
+/* ==========================================================
+   Main Content Area
+========================================================== */
+
+.block-container{
+
+    max-width:1650px;
+
+    padding-top:2rem;
+
+    padding-bottom:3rem;
+
+    padding-left:2.4rem;
+
+    padding-right:2.4rem;
+
+}
+
+
+/* Remove default Streamlit spacing */
+
+section.main>div{
+
+    padding-top:0;
+
+}
+
+
+/* ==========================================================
+   Headings
+========================================================== */
+
+h1{
+
+    font-size:2.45rem;
+
+    font-weight:800;
+
+    color:#111827 !important;
+
+    letter-spacing:-0.5px;
+
+    margin-bottom:.3rem;
+
+}
+
+
+h2{
+
+    font-size:1.8rem;
+
+    font-weight:700;
+
+    color:var(--primary-blue) !important;
+
+    margin-bottom:.6rem;
+
+}
+
+
+h3{
+
+    font-size:1.35rem;
+
+    font-weight:700;
+
+    color:var(--primary-blue) !important;
+
+    margin-bottom:.5rem;
+
+}
+
+
+h4{
+
+    font-size:1.1rem;
+
+    font-weight:600;
+
+    color:#374151 !important;
+
+}
+
+
+/* ==========================================================
+   Text
+========================================================== */
+
+p{
+
+    color:var(--text-secondary);
+
+    line-height:1.65;
+
+}
+
+
+label{
+
+    color:var(--text);
+
+    font-weight:600;
+
+}
+
+
+small{
+
+    color:var(--text-light);
+
+}
+
+
+/* ==========================================================
+   Divider
+========================================================== */
+
+hr{
+
+    border:none;
+
+    border-top:1px solid var(--border);
+
+    margin:1.6rem 0;
+
+}
+
+
+/* ==========================================================
+   Links
+========================================================== */
+
+a{
+
+    color:var(--primary-blue);
+
+    text-decoration:none;
+
+    transition:var(--transition);
+
+}
+
+
+a:hover{
+
+    color:var(--primary-orange);
+
+}
+
+
+/* ==========================================================
+   Controlled Animations
+========================================================== */
+
+button,
+a,
+[data-testid="stMetric"],
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"],
+[data-testid="stExpander"]{
+
+    transition:var(--transition);
+
+}
+
+/* ==========================================================
+   Sidebar
+========================================================== */
+
+section[data-testid="stSidebar"]{
+
+    background:var(--surface);
+
+    border-right:1px solid var(--border);
+
+    box-shadow:
+        6px 0 22px rgba(15,76,129,.08);
+
+}
+
+
+/* Sidebar Container */
+
+section[data-testid="stSidebar"] > div{
+
+    padding:1.25rem 1rem 1.5rem;
+
+}
+
+
+/* ==========================================================
+   Navigation
+========================================================== */
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"]{
+
+    padding-top:.5rem;
+
+}
+
+
+section[data-testid="stSidebar"] ul{
+
+    gap:.45rem;
+
+}
+
+
+section[data-testid="stSidebar"] li{
+
+    margin-bottom:.25rem;
+
+}
+
+
+/* ==========================================================
+   Navigation Links
+========================================================== */
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a{
+
+    display:flex;
+
+    align-items:center;
+
+    min-height:48px;
+
+    border-radius:12px;
+
+    padding:.8rem 1rem;
+
+    color:var(--text-secondary);
+
+    font-weight:600;
+
+    font-size:.96rem;
+
+    text-decoration:none;
+
+    border-left:4px solid transparent;
+
+}
+
+
+/* ==========================================================
+   Hover
+========================================================== */
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a:hover{
+
+    background:var(--primary-blue-light);
+
+    color:var(--primary-blue);
+
+    border-left:4px solid var(--primary-orange);
+
+    transform:translateX(3px);
+
+    box-shadow:0 6px 16px rgba(15,76,129,.08);
+
+}
+
+
+/* Hover Text */
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a:hover span{
+
+    color:var(--primary-blue);
+
+}
+
+
+/* ==========================================================
+   Active Page
+========================================================== */
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"]{
+
+    background:linear-gradient(
+        90deg,
+        var(--primary-blue),
+        #1A5C94
+    );
+
+    color:white !important;
+
+    border-left:4px solid var(--primary-orange);
+
+    font-weight:700;
+
+    box-shadow:
+        0 8px 18px rgba(15,76,129,.18);
+
+}
+
+
+/* Active Text */
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"] span{
+
+    color:white !important;
+
+}
+
+
+/* ==========================================================
+   Divider
+========================================================== */
+
+section[data-testid="stSidebar"] hr{
+
+    border:none;
+
+    border-top:1px solid var(--border);
+
+    margin:1.25rem 0;
+
+}
+
+
+/* ==========================================================
+   Sidebar Branding
+========================================================== */
+
+.sidebar-brand{
+
+    text-align:center;
+
+    margin-top:12px;
+
+    margin-bottom:14px;
+
+}
+
+
+.sidebar-title{
+
+    font-size:1.2rem;
+
+    font-weight:800;
+
+    color:var(--primary-blue);
+
+    margin-top:.75rem;
+
+}
+
+
+.sidebar-subtitle{
+
+    font-size:.88rem;
+
+    color:var(--text-secondary);
+
+    line-height:1.45;
+
+    margin-top:.35rem;
+
+}
+
+
+/* ==========================================================
+   Sidebar Images
+========================================================== */
+
+section[data-testid="stSidebar"] img{
+
+    border-radius:10px;
+
+}
+
+
+section[data-testid="stSidebar"] img:hover{
+
+    transform:scale(1.03);
+
+}
+
+
+/* ==========================================================
+   Footer
+========================================================== */
+
+section[data-testid="stSidebar"] .stCaption{
+
+    color:var(--text-secondary);
+
+    text-align:center;
+
+    font-size:.82rem;
+
+}
+
+
+/* ==========================================================
+   Sidebar Scrollbar
+========================================================== */
+
+section[data-testid="stSidebar"] ::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+
+section[data-testid="stSidebar"] ::-webkit-scrollbar-thumb{
+
+    background:#C7D3E3;
+
+    border-radius:20px;
+
+}
+
+
+section[data-testid="stSidebar"] ::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary-blue);
+
+}
+
+/* ==========================================================
+   KPI Cards
+========================================================== */
+
+div[data-testid="stMetric"]{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+
+}
+
+
+div[data-testid="stMetric"]:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-hover);
+
+    border-color:rgba(15,76,129,.18);
+
+}
+
+
+/* Metric Label */
+
+div[data-testid="stMetric"] label{
+
+    color:var(--text-secondary) !important;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+
+
+/* Metric Value */
+
+div[data-testid="stMetric"] [data-testid="stMetricValue"]{
+
+    color:var(--primary-blue);
+
+    font-size:2rem;
+
+    font-weight:800;
+
+}
+
+
+/* ==========================================================
+   Buttons
+========================================================== */
+
+.stButton button{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        90deg,
+        var(--primary-blue),
+        #1565A9
+    );
+
+    color:white;
+
+    font-weight:700;
+
+    padding:.75rem 1rem;
+
+    box-shadow:0 8px 18px rgba(15,76,129,.18);
+
+}
+
+
+.stButton button:hover{
+
+    background:linear-gradient(
+        90deg,
+        var(--primary-orange),
+        #FF8A33
+    );
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================================
+   Download Buttons
+========================================================== */
+
+.stDownloadButton button{
+
+    width:100%;
+
+    border-radius:12px;
+
+    border:none;
+
+    font-weight:700;
+
+}
+
+
+/* ==========================================================
+   Inputs
+========================================================== */
+
+.stTextInput input,
+.stSelectbox div[data-baseweb="select"],
+.stNumberInput input,
+.stDateInput input{
+
+    border-radius:12px !important;
+
+    border:1px solid var(--border) !important;
+
+    background:var(--surface);
+
+}
+
+
+.stTextInput input:focus,
+.stNumberInput input:focus{
+
+    border-color:var(--primary-blue) !important;
+
+}
+
+
+/* ==========================================================
+   DataFrames
+========================================================== */
+
+div[data-testid="stDataFrame"]{
+
+    border-radius:18px;
+
+    border:1px solid var(--border);
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+    background:white;
+
+}
+
+
+div[data-testid="stDataFrame"]:hover{
+
+    box-shadow:var(--shadow-md);
+
+}
+
+
+/* ==========================================================
+   Expanders
+========================================================== */
+
+details{
+
+    border-radius:16px;
+
+    border:1px solid var(--border);
+
+    background:white;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+details summary{
+
+    font-weight:600;
+
+}
+
+
+/* ==========================================================
+   Tabs
+========================================================== */
+
+button[data-baseweb="tab"]{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+}
+
+button[data-baseweb="tab"][aria-selected="true"]{
+
+    color:var(--primary-blue);
+
+}
+/* ==========================================================
+   DataFrame Polish
+========================================================== */
+
+/* Outer container */
+
+div[data-testid="stDataFrame"]{
+
+    background:var(--surface);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+
+/* Keep dataframe text readable */
+
+div[data-testid="stDataFrame"] *{
+
+    color:var(--text) !important;
+
+}
+
+
+/* Prevent dark hover overlays where possible */
+
+div[data-testid="stDataFrame"] [role="grid"]{
+
+    background:white !important;
+
+}
+
+
+/* ==========================================================
+   Markdown Tables
+========================================================== */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+}
+
+
+table thead{
+
+    background:var(--primary-blue);
+
+    color:white;
+
+}
+
+
+table th{
+
+    color:white;
+
+    padding:14px;
+
+    text-align:left;
+
+}
+
+
+table td{
+
+    padding:12px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+
+table tr:hover{
+
+    background:#F8FAFD;
+
+}
+
+
+/* ==========================================================
+   Alerts
+========================================================== */
+
+div[data-baseweb="notification"]{
+
+    border-radius:14px;
+
+    border:none;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/* ==========================================================
+   Captions
+========================================================== */
+
+div[data-testid="stCaptionContainer"]{
+
+    color:var(--text-secondary);
+
+    font-size:.95rem;
+
+}
+
+
+/* ==========================================================
+   Code Blocks
+========================================================== */
+
+pre{
+
+    border-radius:14px;
+
+    border:1px solid var(--border);
+
+}
+
+
+code{
+
+    font-family:"JetBrains Mono","Consolas",monospace;
+
+}
+
+
+/* ==========================================================
+   Scrollbars
+========================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+
+::-webkit-scrollbar-track{
+
+    background:#EEF3F8;
+
+}
+
+
+::-webkit-scrollbar-thumb{
+
+    background:#B7C7DB;
+
+    border-radius:20px;
+
+}
+
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary-blue);
+
+}
+
+
+/* ==========================================================
+   Selection
+========================================================== */
+
+::selection{
+
+    background:rgba(15,76,129,.18);
+
+    color:#111827;
+
+}
+
+
+/* ==========================================================
+   Footer
+========================================================== */
+
+footer{
+
+    visibility:hidden;
+
+}
+
+
+/* ==========================================================
+   Streamlit Header
+========================================================== */
+
+header[data-testid="stHeader"]{
+
+    background:transparent;
+
+}
+
+
+/* ==========================================================
+   Toolbar
+========================================================== */
+
+[data-testid="stToolbar"]{
+
+    right:1rem;
+
+}
+
+
+/* ==========================================================
+   Images
+========================================================== */
+
+img{
+
+    border-radius:10px;
+
+}
+
+
+/* ==========================================================
+   Final Touch
+========================================================== */
+
+.block-container{
+
+    animation:fadeIn .35s ease;
+
+}
+
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}

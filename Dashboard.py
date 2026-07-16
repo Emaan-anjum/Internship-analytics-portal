@@ -4,29 +4,11 @@ Main entry point for the RESOLVE Internship Analytics Portal.
 
 import streamlit as st
 
-from config import (
-    APP_ICON,
-    APP_NAME,
-)
-
 from utils.load_data import load_data
 
-from components.theme import apply_theme
+from components.app import initialize_app
 from components.header import display_header
 from components.dashboard_kpis import display_dashboard_kpis
-
-
-def configure_page() -> None:
-    """
-    Configure the Streamlit page.
-    """
-
-    st.set_page_config(
-        page_title=APP_NAME,
-        page_icon=APP_ICON,
-        layout="wide",
-        initial_sidebar_state="expanded",
-    )
 
 
 def main() -> None:
@@ -34,9 +16,7 @@ def main() -> None:
     Launch the dashboard.
     """
 
-    configure_page()
-
-    apply_theme() 
+    initialize_app()
 
     students_df = load_data()
 
@@ -65,6 +45,7 @@ def main() -> None:
         use_container_width=True,
         hide_index=True,
     )
+
 
 if __name__ == "__main__":
     main()

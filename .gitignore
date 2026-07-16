@@ -10,6 +10,7 @@ __pycache__/
 
 # Streamlit
 .streamlit/secrets.toml
+.streamlit/cache/
 
 # Environment Variables
 .env
@@ -21,7 +22,7 @@ secrets/*
 .DS_Store
 Thumbs.db
 
-# Pytest Cache (future-proof)
+# Pytest Cache 
 .pytest_cache/
 
 # Distribution / Packaging
