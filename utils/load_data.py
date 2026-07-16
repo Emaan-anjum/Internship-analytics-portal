@@ -48,10 +48,16 @@ def load_data() -> pd.DataFrame:
         Clean internship dataset.
     """
 
-    credentials = Credentials.from_service_account_file(
-        CREDENTIALS_PATH,
-        scopes=SCOPES,
-    )
+    try:
+        credentials = Credentials.from_service_account_info(
+            dict(st.secrets["gcp_service_account"]),
+            scopes=SCOPES,
+        )
+    except Exception:
+        credentials = Credentials.from_service_account_file(
+            CREDENTIALS_PATH,
+            scopes=SCOPES,
+        )
 
     client = gspread.authorize(credentials)
 
